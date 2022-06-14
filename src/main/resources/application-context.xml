@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="baseBallCoach" class="org.example.BaseBallCoach">
+        <property name="distance" value="10"/>
+    </bean>
+    <bean id="cricketCoach" class="org.example.CricketCoach">
+        <property name="distance" value="20"/>
+    </bean>
+
+</beans>
