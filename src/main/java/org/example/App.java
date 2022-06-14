@@ -1,7 +1,10 @@
 package org.example;
 
+import org.example.view.Home;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import javax.swing.*;
 
 /**
  * Hello world!
@@ -27,6 +30,13 @@ public class App {
         else {
             System.out.println("Not equal");
         }*/
-        System.out.println(coach1.getInstruction());
+        /*System.out.println(coach1.getInstruction());*/
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Home();
+            }
+        });
     }
 }
