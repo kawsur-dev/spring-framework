@@ -7,6 +7,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 /**
@@ -42,22 +45,43 @@ public class App {
             }
         });*/
 
-        ApplicationContext applicationContext1 = new ClassPathXmlApplicationContext("application-context.xml");
-        UserDao userDao = applicationContext1.getBean("userDao", UserDao.class);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
 
-        List<User> users = userDao.getAll();
 
-        for (User user: users) {
-            System.out.println(user.getEmail());
-        }
+                JFrame jFrame = new JFrame("Home Page");
+                jFrame.setSize(600, 500);
+                jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                jFrame.setVisible(true);
+        LayoutManager layoutManager = new FlowLayout(FlowLayout.LEFT, 0, 20);
+        jFrame.setLayout(layoutManager);
 
-        System.out.println();
+                final JTextField jTextField = new JTextField();
+                jTextField.setColumns(20);
+                jFrame.add(jTextField);
 
-        userDao.delete(2);
-        users = userDao.getAll();
 
-        for (User user: users) {
-            System.out.println(user.getEmail());
-        }
+                JButton submit = new JButton("Submit");
+                jFrame.add(submit);
+
+                submit.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ApplicationContext applicationContext1 = new ClassPathXmlApplicationContext("application-context.xml");
+                        UserDao userDao = applicationContext1.getBean("userDao", UserDao.class);
+
+                        int id = Integer.parseInt(jTextField.getText());
+                        userDao.delete(id);
+
+                        List<User> users = userDao.getAll();
+                        for(User user: users) {
+                            System.out.println(user.getEmail());
+                        }
+                    }
+                });
+
+            }
+        });
     }
 }
